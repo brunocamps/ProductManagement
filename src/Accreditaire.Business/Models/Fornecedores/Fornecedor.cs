@@ -21,7 +21,8 @@ namespace Accreditaire.Business.Models.Fornecedores
         public bool Ativo { get; set; }
 
         /* EF Relations */
-
         public ICollection<Produto> Produtos { get; set; }
+
+
     }
 }
