@@ -1,23 +1,12 @@
+using Accreditaire.Infra.Data.Context;
+using System.Data.Entity.Migrations;
 namespace Accreditaire.AppMvc.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    internal sealed class Configuration : DbMigrationsConfiguration<Accreditaire.AppMvc.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<MeuDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
-        }
-
-        protected override void Seed(Accreditaire.AppMvc.Models.ApplicationDbContext context)
-        {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+            AutomaticMigrationsEnabled = true;
         }
     }
 }

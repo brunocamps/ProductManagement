@@ -28,7 +28,15 @@ namespace Accreditaire.Infra.Data.Mappings
 
             // relacionamento
 
-            HasRequired(f => f.Endereco); // HasRequired é um relacionamento obrigatorio
+            HasRequired(f => f.Endereco).WithRequiredPrincipal(e => e.Fornecedor);
+            // Fornecedor tem um endereço requerido e o principal nessa
+            // relação é o fornecedor.
+            ToTable("Fornecedores");
+            
+            
+            
+            
+            // HasRequired é um relacionamento obrigatorio
             //HasOptional é um relacionamento opcional
 
         }

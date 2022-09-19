@@ -1,5 +1,6 @@
 ﻿using Accreditaire.Business.Models.Fornecedores;
 using Accreditaire.Business.Models.Produtos;
+using Accreditaire.Infra.Data.Mappings;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -20,6 +21,15 @@ namespace Accreditaire.Infra.Data.Context
         public DbSet<Endereco> Enderecos { get; set; }
 
         public DbSet<Fornecedor> Fornecedores { get; set; }
+
+        // overwrite
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new FornecedorConfig());
+            modelBuilder.Configurations.Add(new EnderecoConfig());
+            modelBuilder.Configurations.Add(new ProdutoConfig());
+        }
 
 
 
