@@ -41,7 +41,7 @@ namespace Accreditaire.Infra.Data.Context
             modelBuilder.Properties<string>()
                 .Configure(p => p.HasColumnType("varchar").HasMaxLength(100));
 
-
+              
             modelBuilder.Configurations.Add(new FornecedorConfig());
             modelBuilder.Configurations.Add(new EnderecoConfig());
             modelBuilder.Configurations.Add(new ProdutoConfig());
