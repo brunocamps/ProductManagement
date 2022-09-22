@@ -11,8 +11,10 @@ using System.Threading.Tasks;
 
 namespace Accreditaire.Infra.Data.Repository
 {
-    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity// generica, portanto esta classe precisa ser generica tambem (TEntity)
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()// generica, portanto esta classe precisa ser generica tambem (TEntity)
     {
+        // estrategia de repositorio generico
+        // alguns metodos sao virtuais porque na hora de implementar os metodos, voce podera modifica-los
         // public abstract class: nao pode implementar sozinha, tem que herda-la
         // Esta classe repository faz tudo aquilo que a nossa interface (IRepository) implementou
 
@@ -45,7 +47,9 @@ namespace Accreditaire.Infra.Data.Repository
 
         public virtual async Task Atualizar(TEntity entity)
         {
-            throw new NotImplementedException();
+            // Atualizar o estado da entidade
+            Db.Entry(entity).State = EntityState.Modified;
+            await SaveChanges();
         }
         //852
         public async Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate)
@@ -54,9 +58,11 @@ namespace Accreditaire.Infra.Data.Repository
         }
   
 
-        public Task Remover(Guid id)
+        public virtual async Task Remover(Guid id)
         {
-            throw new NotImplementedException();
+            // economiza uma ida ao banco
+            Db.Entry(new TEntity { Id = id }).State = EntityState.Deleted;
+            await SaveChanges();
         }
 
         public async Task<int> SaveChanges()
@@ -66,7 +72,7 @@ namespace Accreditaire.Infra.Data.Repository
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Db?.Dispose(); // so chama se tiver instancia definida
         }
     }
 }
